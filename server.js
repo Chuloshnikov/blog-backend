@@ -1,5 +1,19 @@
-import * as service from './service.js';
+import express from 'express';
 
-console.log('hi from server');
+const app = express();
 
-console.log(service.DATA.link);
+async function main() {
+    app.use(express.json());
+
+    app.use('/api/blog', (req, res) => {
+        res.json({
+            message: 'success'
+        }).status(200)
+    });
+
+    app.listen(4200, () => {
+        console.log('Server is running on port 4200');
+    })
+}
+
+main();
