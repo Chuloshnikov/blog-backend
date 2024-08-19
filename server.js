@@ -30,8 +30,17 @@ async function main() {
     })
     })
 
+    app.set('/error', (req, res) => {
+        throw new Error('This is a test error');
+    })
+
     app.all('*', (req, res) => {
         res.status(404).json({message: 'Not Found'});
+    })
+
+    app.use((err, req, res, next) => {
+        console.error(err.stack)
+        res.status(500).send('Something went wrong');
     })
 
     app.listen(process.env.PORT || 8080, () => {
