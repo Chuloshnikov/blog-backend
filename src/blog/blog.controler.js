@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { BlogService } from "./blog.service.js";
+import { authMiddleware } from "../auth.meddleware.js";
 
 //Здесь и обрабатываем всю валидацию
 
@@ -7,7 +8,7 @@ const router = Router();
 
 const blogsService = new BlogService();
 
-router.post('/', (req, res) => {
+router.post('/', authMiddleware, (req, res) => {
     if (!req.body?.text?.length) {
         return res.status(400).json({ message: "Text is required"})
     }
