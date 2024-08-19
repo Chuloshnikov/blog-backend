@@ -1,5 +1,8 @@
 import express from 'express';
 import { blogRouter } from './src/blog/blog.controler.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 
@@ -12,7 +15,7 @@ async function main() {
         res.status(404).json({message: 'Not Found'});
     })
 
-    app.listen(4200, () => {
+    app.listen(process.env.PORT || 8080, () => {
         console.log('Server is running on port 4200');
     })
 }
